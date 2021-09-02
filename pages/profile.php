@@ -612,7 +612,7 @@ $mydata = mysqli_fetch_assoc($result2)
                       <p class="text-gradient text-dark mb-2 text-sm">Project #1</p>
                       <a href="javascript:;">
                         <h5>
-                          Scandinavian
+                          Laporan Kurasi
                         </h5>
                       </a>
                       <p class="mb-4 text-sm">

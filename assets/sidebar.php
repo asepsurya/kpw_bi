@@ -39,61 +39,23 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
-        
+        <?php
+         
+          if($_SESSION['level'] == "12" or $_SESSION['level'] == "1" or $_SESSION['level'] == "13" or $_SESSION['level'] == "14"){
+          ?>
         <ul class="navbar-nav">
         <li class="nav-item">
-          <?php
-          if($_GET['id_ikm']=="221"){
-              echo' <a class="nav-link active " href="" data-bs-toggle="modal" data-bs-target="#kurasi">';
-          } else{
-            echo' <a class="nav-link  " href="" data-bs-toggle="modal" data-bs-target="#kurasi" >';
-          }
-          ?>
-         
+        <a class="nav-link  " href="" data-bs-toggle="modal" data-bs-target="#kurasi">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg class="svg-icon" viewBox="0 0 20 20">
 							<path d="M17.211,3.39H2.788c-0.22,0-0.4,0.18-0.4,0.4v9.614c0,0.221,0.181,0.402,0.4,0.402h3.206v2.402c0,0.363,0.429,0.533,0.683,0.285l2.72-2.688h7.814c0.221,0,0.401-0.182,0.401-0.402V3.79C17.612,3.569,17.432,3.39,17.211,3.39M16.811,13.004H9.232c-0.106,0-0.206,0.043-0.282,0.117L6.795,15.25v-1.846c0-0.219-0.18-0.4-0.401-0.4H3.189V4.19h13.622V13.004z"></path>
 						</svg>
             </div>
-            <span class="nav-link-text ms-1">Kurator 1</span>
+            <span class="nav-link-text ms-1">Kurator </span>
           </a>
         </li>
-        <ul class="navbar-nav">
-        <li class="nav-item">
-          <?php
-          if($_GET['id_ikm']=="222"){
-              echo' <a class="nav-link active " href="../pages/index?id_ikm=0">';
-          } else{
-            echo' <a class="nav-link  " href="../pages/index?id_ikm=0">';
-          }
-          ?>
-         
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <svg class="svg-icon" viewBox="0 0 20 20">
-							<path d="M17.211,3.39H2.788c-0.22,0-0.4,0.18-0.4,0.4v9.614c0,0.221,0.181,0.402,0.4,0.402h3.206v2.402c0,0.363,0.429,0.533,0.683,0.285l2.72-2.688h7.814c0.221,0,0.401-0.182,0.401-0.402V3.79C17.612,3.569,17.432,3.39,17.211,3.39M16.811,13.004H9.232c-0.106,0-0.206,0.043-0.282,0.117L6.795,15.25v-1.846c0-0.219-0.18-0.4-0.401-0.4H3.189V4.19h13.622V13.004z"></path>
-						</svg>
-            </div>
-            <span class="nav-link-text ms-1">kurator 2</span>
-          </a>
-        </li>
-        <ul class="navbar-nav">
-        <li class="nav-item">
-          <?php
-          if($_GET['id_ikm']=="222"){
-              echo' <a class="nav-link active " href="../pages/index?id_ikm=0">';
-          } else{
-            echo' <a class="nav-link  " href="../pages/index?id_ikm=0">';
-          }
-          ?>
-         
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <svg class="svg-icon" viewBox="0 0 20 20">
-							<path d="M17.211,3.39H2.788c-0.22,0-0.4,0.18-0.4,0.4v9.614c0,0.221,0.181,0.402,0.4,0.402h3.206v2.402c0,0.363,0.429,0.533,0.683,0.285l2.72-2.688h7.814c0.221,0,0.401-0.182,0.401-0.402V3.79C17.612,3.569,17.432,3.39,17.211,3.39M16.811,13.004H9.232c-0.106,0-0.206,0.043-0.282,0.117L6.795,15.25v-1.846c0-0.219-0.18-0.4-0.401-0.4H3.189V4.19h13.622V13.004z"></path>
-						</svg>
-            </div>
-            <span class="nav-link-text ms-1">Kurator 3</span>
-          </a>
-        </li>
+       
+        <?php } ?>
         <li class="nav-item mt-3">
           <?php
           include'koneksi.php';
@@ -103,10 +65,11 @@
           ?>
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Data Peserta (<?= $jumlah ?>)</h6>
         </li>
+       
         <?php 
   include'koneksi.php';
   $id_ikm =$_SESSION['id_ikm'];
-  if($_SESSION['level']=="1"){
+  if($_SESSION['level']=="1" or $_SESSION['level']=="12" or $_SESSION['level']=="13"){
     $query = "SELECT * from tb_ukm ";
     $result = mysqli_query($koneksi, $query);
   }else{
@@ -146,6 +109,3 @@
         </li>
       <?php } ?>
   </aside>
-  
-
-  

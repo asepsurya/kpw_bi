@@ -30,7 +30,32 @@ if($cek > 0){
 		$_SESSION['id_ikm']=$data['id_ikm'];
 		header("location:../index?id_ikm=$data[id_ikm]");
 	    // cek jika user login sebagai pengurus
-	}else if($data['level']=="3"){
+    }else if($data['level']=="12"){
+		// buat session login dan username
+		$_SESSION['username'] = $username;
+		$_SESSION['level'] = "12";
+        $_SESSION['nama'] = $data['nama'];
+		$_SESSION['id_ikm']=$data['id_ikm'];
+		header("location:../index?id_ikm=$data[id_ikm]");
+	    // cek jika user login sebagai pengurus
+	}else if($data['level']=="13"){
+		// buat session login dan username
+		$_SESSION['username'] = $username;
+		$_SESSION['level'] = "13";
+        $_SESSION['nama'] = $data['nama'];
+		$_SESSION['id_ikm']=$data['id_ikm'];
+		header("location:../index?id_ikm=$data[id_ikm]");
+	    // cek jika user login sebagai pengurus
+	}else if($data['level']=="14"){
+		// buat session login dan username
+		$_SESSION['username'] = $username;
+		$_SESSION['level'] = "12";
+        $_SESSION['nama'] = $data['nama'];
+		$_SESSION['id_ikm']=$data['id_ikm'];
+		header("location:../index?id_ikm=$data[id_ikm]");
+	    // cek jika user login sebagai pengurus
+	}
+    else if($data['level']=="3"){
 		// buat session login dan username
 		$_SESSION['username'] = $username;
 		$_SESSION['level'] = "pengurus";
