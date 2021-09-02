@@ -57,7 +57,7 @@
         </li>
         <?php } ?>
     </ul>
-    <form action="../pages/aksi/input_peserta.php" method="POST" enctype="multipart/form-data">
+    <form action="../pages/aksi/kurasi_aksi.php" method="POST" enctype="multipart/form-data">
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home1" role="tabpanel" aria-labelledby="home-tab">
         <br>
