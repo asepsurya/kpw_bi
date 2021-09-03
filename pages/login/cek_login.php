@@ -49,7 +49,7 @@ if($cek > 0){
 	}else if($data['level']=="14"){
 		// buat session login dan username
 		$_SESSION['username'] = $username;
-		$_SESSION['level'] = "12";
+		$_SESSION['level'] = "14";
         $_SESSION['nama'] = $data['nama'];
 		$_SESSION['id_ikm']=$data['id_ikm'];
 		header("location:../index?id_ikm=$data[id_ikm]");

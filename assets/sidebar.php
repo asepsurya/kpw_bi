@@ -69,7 +69,7 @@
         <?php 
   include'koneksi.php';
   $id_ikm =$_SESSION['id_ikm'];
-  if($_SESSION['level']=="1" or $_SESSION['level']=="12" or $_SESSION['level']=="13"){
+  if($_SESSION['level']=="1" or $_SESSION['level']=="12" or $_SESSION['level']=="13" or $_SESSION['level']=="14"){
     $query = "SELECT * from tb_ukm ";
     $result = mysqli_query($koneksi, $query);
   }else{

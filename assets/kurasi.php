@@ -9,18 +9,22 @@
     </div>
     <div class="modal-body">
     <label> Silahkan Pilih UMKM yang akan dinilai</label>
-    <select name="nama" class="form-control theSelect">
+    <select name="nama" class="form-control theSelect" onchange="changeValue(this.value)">
      
     <?php
  include 'koneksi.php';
  $query = "SELECT * from tb_ukm ";
  $result = mysqli_query($koneksi, $query);
+ $jsArray = "var prdName = new Array();\n";
  while($data = mysqli_fetch_assoc($result)){
     echo'<option value='.$data['id_ikm'].'>'.$data['nama'].'</option>';
+    $jsArray .= "prdName['" . $data['id_ikm'] . "'] = {nama:'" . addslashes($data['id_ikm']) . "'};\n";
+      
  }
  ?>
       
       </select>
+      
       <hr>
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <?php 
@@ -57,7 +61,8 @@
         </li>
         <?php } ?>
     </ul>
-    <form action="../pages/aksi/input_peserta.php" method="POST" enctype="multipart/form-data">
+    <form action="../pages/aksi/kurasi_aksi.php" method="POST" enctype="multipart/form-data">
+    <input type="text" name="id_ikm2" class="form-control" id="nama">
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home1" role="tabpanel" aria-labelledby="home-tab">
         <br>
@@ -217,3 +222,9 @@
 </div>
 </div>
 </div>
+<script type="text/javascript">    
+    <?php echo $jsArray; ?>  
+    function changeValue(x){  
+    document.getElementById('nama').value = prdName[x].nama;   
+    };  
+    </script> 
