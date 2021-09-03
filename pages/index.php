@@ -35,8 +35,7 @@ session_start();
   <!-- Nucleo Icons -->
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+  
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
@@ -69,8 +68,19 @@ session_start();
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group">
-              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="Type here...">
+            <select id="select-state" placeholder="Pick a state..." onchange="location = this.value;" >
+    <option value="">Select a state...</option>
+    <?php
+    include 'koneksi.php';
+    $query = "SELECT * from tb_ukm ";
+    $result = mysqli_query($koneksi, $query);
+    while($data = mysqli_fetch_assoc($result)){
+       echo'<option value=../pages/profile.php?id_ikm='.$data['id_ikm'].'>'.$data['nama'].'</option>';
+         
+    }
+    ?>
+   
+  </select>
             </div>
           </div>
           <ul class="navbar-nav  justify-content-end">
@@ -691,9 +701,30 @@ session_start();
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
- 
+  <script>
+function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
 	<script>
-		$(".theSelect").select2();
+		 $(document).ready(function () {
+      $('select').selectize({
+          sortField: 'text'
+      });
+  });
 	</script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

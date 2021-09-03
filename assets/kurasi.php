@@ -8,6 +8,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
+    <div class="p-3 mb-2 bg-warning text-dark">
     <label> Silahkan Pilih UMKM yang akan dinilai</label>
     <select name="nama" class="form-control theSelect" onchange="changeValue(this.value)">
      <option selected> -- Pilih UMKM -- </option>
@@ -24,7 +25,7 @@
  ?>
       
       </select>
-      
+</div>
       <hr>
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <?php 
