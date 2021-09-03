@@ -10,7 +10,7 @@
     <div class="modal-body">
     <label> Silahkan Pilih UMKM yang akan dinilai</label>
     <select name="nama" class="form-control theSelect" onchange="changeValue(this.value)">
-     
+     <option selected> -- Pilih UMKM -- </option>
     <?php
  include 'koneksi.php';
  $query = "SELECT * from tb_ukm ";
@@ -62,10 +62,9 @@
         <?php } ?>
     </ul>
     <form action="../pages/aksi/kurasi_aksi.php" method="POST" enctype="multipart/form-data">
-<<<<<<< HEAD
-    <input type="text" name="id_ikm2" class="form-control" id="nama">
-=======
->>>>>>> 2e7f1cebf875ca3638cef7e41295c216fe17b689
+
+    <input type="text" name="id_ikm2" class="form-control" id="nama"  readonly hidden>
+
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home1" role="tabpanel" aria-labelledby="home-tab">
         <br>

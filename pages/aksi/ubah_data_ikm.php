@@ -26,6 +26,8 @@ die("Connection failed: " . mysqli_connect_error());
   $haki = $_POST['haki'];
   $haccp=$_POST['haccp'];
   $legalitas = $_POST['legalitas'];
+  $omset = $_POST['omset'];
+  $kapasitas_produksi = $_POST['kapasitas'];
  // $logo_perusahaan = $_POST['logo_perusahaan'];
   $media_penjualan = $_POST['media_penjualan']; 
  
@@ -34,6 +36,7 @@ die("Connection failed: " . mysqli_connect_error());
 
     $a = "UPDATE tb_brainstorming SET nama='$nama_ikm',kelas ='$kelas' ,telp ='$telp',alamat='$alamat',gender='$gender' WHERE id_ikm = '$id_ikm'";
     if(mysqli_query($koneksi, $a)){
+      
       header("location:../profile.php?id_ikm=$id_ikm");
       $_SESSION['update']=" Data  Berhasil Diubah";  
 

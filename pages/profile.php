@@ -18,7 +18,6 @@
 <?php
 session_start();
   if (empty($_SESSION["username"])) {
-   # code...
    header("Location:login.php?pesan=invalid");
   }
  ?>
@@ -31,15 +30,14 @@ session_start();
     KPW Bank Indonesia - Data Peserta
 </title>
 <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
-		<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
-		<script src="https://unpkg.com/dropzone"></script>
-		<script src="https://unpkg.com/cropperjs"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.css" crossorigin="anonymous"/>
 <!--     Fonts and icons     -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 <!-- Nucleo Icons -->
 <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
 <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-<link href="../assets/css/modal.css" rel="stylesheet" />
+
 <link href="../assets/css/upload.css" rel="stylesheet" />
 <!-- Font Awesome Icons -->
 <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
@@ -48,6 +46,9 @@ session_start();
 <!-- CSS Files -->
 <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
 <style>
+  .custom{
+    font-size:10px;
+  }
   .modal-lg{
   			max-width: 1000px !important;
 		}
@@ -250,30 +251,39 @@ $query = "SELECT * from tb_brainstorming where id_ikm='$_GET[id_ikm]' ";
 $result = mysqli_query($koneksi, $query);
 $data = mysqli_fetch_assoc($result)
 ?>
+<?php 
+$query2 = "SELECT * from tb_kurasi  where id_ikm ='$_GET[id_ikm]' ";
+$result1 = mysqli_query($koneksi, $query2);
+$data2 = mysqli_fetch_array($result1)
+?>
+<?php 
+$query3 = "SELECT * from user  where id_ikm ='$_GET[id_ikm]' ";
+$result2 = mysqli_query($koneksi, $query3);
+$data3 = mysqli_fetch_array($result2)
+?>
 <div class="container-fluid">
   <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('../assets/img/curved-images/curved0.jpg'); background-position-y: 50%;">
     <span class="mask bg-gradient-primary opacity-6"></span>
 </div>
 <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
     <div class="row gx-4">
-      <div class="col-auto">
+      <div class="col-auto"><br>
         <div class="avatar avatar-xl position-relative">
           
           <div class="image_area">
 						<form method="post">
 							<label for="upload_image">
-								<img src="../assets/img/bruce-mars.jpg" id="uploaded_image"  class="w-100 border-radius-lg shadow-sm" />
+								<img src="media/foto/<?= $data3['gambar'] ?>" id="uploaded_image"  class="border-radius-lg shadow-sm" />
 								<div class="overlay">
-									<div class="text">Ubah Gambar</div>
+									<div class="text"><a href="#" data-bs-toggle="modal" data-bs-target="#change">Ubah Gambar</a></div>
 								</div>
-								<input type="file" name="image" class="image" id="upload_image" style="display:none" />
 							</label>
 						</form>
 					</div>
 			    </div>
         </a>
         </div>
-  </div>
+  
   <div class="col-auto my-auto">
     <div class="h-100">
       <h5 class="mb-1">
@@ -313,8 +323,17 @@ $data = mysqli_fetch_assoc($result)
           <button class="tablinks" onclick="openCity(event, 'Paris')">Legalitas/ Informasi UKM</button>
           <button class="tablinks" onclick="openCity(event, 'Tokyo')">Media dan Gallery </button>
           <?php
-          if($_SESSION['level']=="1"){?>
+          if($_SESSION['level']=="1" or $_SESSION['level']=="12" or $_SESSION['level']=="13" or $_SESSION['level']=="14"){?>
             <button class="tablinks" onclick="openCity(event, 'laporan')">Laporan</button>
+              <?php
+              $myquery = "SELECT * from tb_kurasi  where id_ikm ='$_GET[id_ikm]' ";
+              $result2 = mysqli_query($koneksi, $myquery);
+               $cek = mysqli_num_rows($result2);
+                if($cek > 0){?>
+                   <button class="tablinks" onclick="openCity(event, 'nilai')">Penilaian Produk</button>
+                <?php
+                }
+              ?>
          <?php } ?>
           
       </div>
@@ -360,16 +379,8 @@ $data = mysqli_fetch_assoc($result)
 </div>
 </div>
 <div class="col-lg-6">
-  <div class="form-group">
-    <label class="form-control-label">Gramasi(g) Upgrade </label>
-    <div class="input-group">
-      <input type="text" class="form-control" name="gramasi_new" id="gramasi_new" disabled value="<?php echo $data['gramasi_new'] ?>">
-      <div class="input-group-append">
-        <span class="input-group-text">gram</span>
-    </div>
-</div>
-</div>
-</div>
+      <input type="text" class="form-control" hidden name="gramasi_new" id="gramasi_new" disabled value="<?php echo $data['gramasi_new'] ?>">
+              </div>
 
 <div class="col-lg-6">
   <div class="form-group">
@@ -418,8 +429,8 @@ $data = mysqli_fetch_assoc($result)
 </div>
 
 </div>
-<button type="button" id="aktif" class="btn btn-primary btn-block" onclick="myFunction()"> <i class="fa fa-pen"></i> Update Data</button>
-<input type="submit" id="ubah" class="btn btn-primary btn-block" name="ubah" hidden value="+ Simpan">
+<button type="button" id="aktif" class="btn btn-primary " onclick="myFunction()"> <i class="fa fa-pen"></i> Update Data</button>
+<input type="submit" id="ubah" class="btn btn-primary " name="ubah" hidden value="+ Simpan">
 
 </form>
 </div>
@@ -430,32 +441,32 @@ $data = mysqli_fetch_assoc($result)
       <div class="col-lg-4">
         <div class="form-group">
           <label class="form-control-label">Nama Lengkap: </label>
-          <input class="form-control" id="nama_ikm" type="text" name="nama_ikm"  value="<?php echo $data['nama'] ?>" Required>
+          <input class="form-control" id="nama_ikm" type="text" name="nama_ikm"  value="<?php echo $data['nama'] ?>" Required disabled >
           <input class="form-control" id="id_ikm" type="text" name="id_ikm" ReadOnly hidden value="<?php echo $data['id_ikm'] ?>" Required>
       </div>
   </div><!-- col-4 -->
   <div class="col-lg-4">
     <div class="form-group">
       <label class="form-control-label">Email </label>
-      <input class="form-control" id="kelas" type="text" name="kelas"  placeholder="Kelas" value=" <?php echo $data['kelas'] ?>">
+      <input class="form-control" id="email" type="text" name="kelas"  placeholder="Kelas" value=" <?php echo $data['kelas'] ?>" disabled>
   </div>
 </div><!-- col-4 -->
 <div class="col-lg-4">
   <div class="form-group">
       <label class="form-control-label">Telepon</label>
-      <input type="text" class="form-control" id="telp" name="telp" placeholder="(999) 999-9999" value=" <?php echo $data['telp'] ?>">
+      <input type="text" class="form-control" id="telp" name="telp" placeholder="(999) 999-9999" value=" <?php echo $data['telp'] ?>" disabled>
   </div>
 </div><!-- col-4 -->
 <div class="col-lg-8">
     <div class="form-group mg-b-10-force">
       <label class="form-control-label">Alamat Lengkap </label>
-      <textarea class="form-control" type="text" id="alamat" name="alamat"  placeholder="Alamat Lengkap" Required><?php echo $data['alamat'] ?></textarea>
+      <textarea class="form-control" type="text" id="alamat" name="alamat"  placeholder="Alamat Lengkap" Required disabled><?php echo $data['alamat'] ?></textarea>
   </div>
 </div><!-- col-8 -->
 <div class="col-lg-4">
     <div class="form-group mg-b-10-force">
       <label class="form-control-label">Jenis Kelamin </label>
-      <select class="form-control select2" data-placeholder="Choose country" name="gender" Required>
+      <select class="form-control select2" data-placeholder="Choose country" name="gender" Required id="jk" disabled>
         <?php
         if($data['gender']=="L"){
           echo' <option value="L" selected>Laki - Laki</option>';
@@ -475,7 +486,7 @@ $data = mysqli_fetch_assoc($result)
         <div class="col-lg-12">
             <div class="form-group">
               <label class="form-control-label">Nama Perusahaan</label>
-              <input class="form-control" type="text" name="nama_perusahaan"  id="nama_perusahaan" placeholder="Nama Perusahaan"  value="<?= $data['nama_perusahaan'] ?>">
+              <input class="form-control" type="text" name="nama_perusahaan"  id="nama_perusahaan" placeholder="Nama Perusahaan"  value="<?= $data['nama_perusahaan'] ?>" disabled>
           </div>
       </div>
   <br>
@@ -494,49 +505,59 @@ $mydata = mysqli_fetch_assoc($result2)
       <div class="col-lg-6">
         <div class="form-group">
           <label class="form-control-label">Nomor NIB</label>
-          <input class="form-control" type="text" name="nib"  id="hallal" placeholder="NIB" value="<?= $mydata['nib'] ?>">
+          <input class="form-control" type="text" name="nib"  id="nib" placeholder="NIB" value="<?= $mydata['nib'] ?>" disabled>
       </div>
       <div class="form-group">
           <label class="form-control-label">Nomor SP - IRT</label>
-          <input class="form-control" type="text" name="pirt"  id="hallal" placeholder="SP-IRT"  value="<?= $mydata['spirt'] ?>">
+          <input class="form-control" type="text" name="pirt"  id="pirt" placeholder="SP-IRT"  value="<?= $mydata['spirt'] ?>"disabled>
       </div>
       <div class="form-group">
           <label class="form-control-label">Layak Sehat</label>
-          <input class="form-control" type="text" name="layak_sehat"  id="hallal" placeholder="Layak Sehat"  value="<?= $mydata['layak_sehat'] ?>">
+          <input class="form-control" type="text" name="layak_sehat"  id="layak" placeholder="Layak Sehat"  value="<?= $mydata['layak_sehat'] ?>"disabled>
       </div>
       <div class="form-group">
           <label class="form-control-label">Halal</label>
-          <input class="form-control" type="text" name="hallal"  id="hallal" placeholder="Halal"  value="<?= $mydata['halal'] ?>">
+          <input class="form-control" type="text" name="hallal"  id="hallal" placeholder="Halal"  value="<?= $mydata['halal'] ?>"disabled>
       </div>
       <div class="form-group">
           <label class="form-control-label">CPPOB</label>
-          <input class="form-control" type="text" name="cppob"  id="hallal" placeholder="CPPOB"  value="<?= $mydata['cppob'] ?>">
+          <input class="form-control" type="text" name="cppob"  id="cppob" placeholder="CPPOB"  value="<?= $mydata['cppob'] ?>"disabled>
       </div>
+      <div class="form-group">
+      <label class="form-control-label">Kapasitas Produksi</label>
+      <input class="form-control" type="text" name="kapasitas"  id="kapasitas" placeholder="kapasitas_produksi"  value="<?= $data['kapasitas_produk'] ?>" disabled>
+  </div>
   </div>
   <div class="col-lg-6">
     <div class="form-group">
       <label class="form-control-label">ISO</label>
-      <input class="form-control" type="text" name="iso"  id="pirt" placeholder="ISO"  value="<?= $mydata['iso'] ?>">
+      <input class="form-control" type="text" name="iso"  id="iso" placeholder="ISO"  value="<?= $mydata['iso'] ?>" disabled>
   </div>
   <div class="form-group">
       <label class="form-control-label">Hak Merek (HAKI)</label>
-      <input class="form-control" type="text" name="haki"  id="pirt" placeholder="Hak Merek"  value="<?= $mydata['haki'] ?>">
+      <input class="form-control" type="text" name="haki"  id="haki" placeholder="Hak Merek"  value="<?= $mydata['haki'] ?>" disabled>
   </div>
   <div class="form-group">
       <label class="form-control-label">HACCP</label>
-      <input class="form-control" type="text" name="haccp"  id="pirt" placeholder="HACCP"  value="<?= $mydata['haccp'] ?>">
+      <input class="form-control" type="text" name="haccp"  id="haccp" placeholder="HACCP"  value="<?= $mydata['haccp'] ?>" disabled>
   </div>
   <div class="form-group">
       <label class="form-control-label">Legalitas Lainnya</label>
-      <textarea class="form-control" type="text" name="legalitas" id="legalitas" placeholder="Legalitas Lainnya"> <?= $mydata['legalitas_lainnya'] ?></textarea>
+      <textarea class="form-control" type="text" name="legalitas" id="legalitas" placeholder="Legalitas Lainnya" disabled> <?= $mydata['legalitas_lainnya'] ?></textarea>
       <small>* Catatan:  Kosongkan Jika tidak memiliki legalitas atau sertifikasi</small>
+  </div><br>
+  <div class="form-group">
+      <label class="form-control-label">Omset</label>
+      <input class="form-control" type="text" name="omset"  id="omset" placeholder="Omset"  value="<?= $data['omset'] ?>" disabled>
   </div>
+  
 </div>
+
 <hr><br>
 <div class="col-lg-12">
     <div class="form-group">
       <label class="form-control-label">Media Penjualan </label>
-      <textarea class="form-control" type="text" name="media_penjualan" id="media_penjualan"  placeholder="Media Penjualan"> <?= $data['media_penjualan'] ?></textarea>
+      <textarea class="form-control" type="text" name="media_penjualan" id="media_penjualan" disabled placeholder="Media Penjualan"> <?= $data['media_penjualan'] ?></textarea>
       <small>*Contoh : Facebook, Instagram dll</small>
   </div>
 </div>
@@ -546,18 +567,22 @@ $mydata = mysqli_fetch_assoc($result2)
 <div class="col-lg-6">
 <div class="form-group">
   <label>  Company Profile / Deskripsi Perusahaan</label><br>
+  <input type="file" name="doc1" class="form-control"><br>
   <button type="button" class="btn btn-default"> Download Dokumen</button>
+  
 </div>
 </div>
 <div class="col-lg-6">
 <div class="form-group">
   <label> Foto Sertifikat / legalitas <br><br>
+  <input type="file" name="doc2" class="form-control"><br>
   <button type="button" class="btn btn-default"> Tampilkan Gambar </button>
 </div>
 </div>
 </div>
 </div><!-- row-->
-<button type="submit" class="btn btn-primary " name="ubah"> <i class="fa fa-pen"></i> Update Data</button>
+<button type="button" id="aktif2" class="btn btn-primary " onclick="myFunction()"> <i class="fa fa-pen"></i> Update Data</button>
+<input type="submit" id="simpan2" class="btn btn-primary " name="ubah" value="+ Simpan" hidden>
 </form>
 </div><!-- row -->
 </div>
@@ -827,7 +852,199 @@ $mydata = mysqli_fetch_assoc($result2)
                <br>
               </div>
 </div>
+<!-- tab penilaian Produk -->
+<div id="nilai" class="tabcontent">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <?php 
+    if($_SESSION['level']=="12" or $_SESSION['level']=="1"){
+    ?>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home1" type="button" role="tab" aria-controls="home" aria-selected="true">Produksi</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile1" type="button" role="tab" aria-controls="profile" aria-selected="false"> Inovasi & Orisinalitas</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact1" type="button" role="tab" aria-controls="contact" aria-selected="false">Legalitas & Sertifikasi</button>
+    </li>
+    <?php } ?>
+    <?php 
+    if($_SESSION['level']=="13" or $_SESSION['level']=="1"){
+    ?>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#kemasan" type="button" role="tab" aria-controls="contact" aria-selected="false"> Kemasan</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#manajemen" type="button" role="tab" aria-controls="contact" aria-selected="false"> Manajemen Usaha</button>
+    </li>
+    <?php } ?>
+    <?php 
+    if($_SESSION['level']=="14" or $_SESSION['level']=="1"){
+    ?>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#pemasaran" type="button" role="tab" aria-controls="contact" aria-selected="false"> Pemasaran</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#digital" type="button" role="tab" aria-controls="contact" aria-selected="false"> Digital Marketing</button>
+    </li>
+    <?php } ?>
+  </ul>
+  <form action="aksi/update_kurasi.php" method="POST">
+  <div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home1" role="tabpanel" aria-labelledby="home-tab">
+        <br>
+        <input name="id_ikm" value="<?= $data2['id_ikm'] ?>" hidden>
+        <div class="form-group">
+          <label class="form-control-label">Supply Bahan Baku <span class="tx-danger">*</span></label>
+          <textarea name="text1" class="form-control" cols="4" rows="10" id="text1" disabled><?php echo $data2['supply'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Proses Pengolahan Bahan Baku <span class="tx-danger">*</span></label>
+          <textarea name="text2" class="form-control" cols="4" rows="10" id="text2" disabled><?php echo $data2['proses_pengolahan'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Kapasitas Produksi <span class="tx-danger">*</span></label>
+          <textarea name="text3" class="form-control" cols="4" rows="10" id="text3" disabled><?php echo $data2['kapasitas_produksi'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Konsistensi Produksi <span class="tx-danger">*</span></label>
+          <textarea name="text4" class="form-control" cols="4" rows="10" id="text4" disabled><?php echo $data2['konsistensi_produksi'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Tempat Produksi <span class="tx-danger">*</span></label>
+          <textarea name="text5" class="form-control" cols="4" rows="10" id="text5" disabled><?php echo $data2['tempat_produksi'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Keterlibatan Teknologi <span class="tx-danger">*</span></label>
+          <textarea name="text6" class="form-control" cols="4" rows="10" id="text6" disabled><?php echo $data2['keterlibatan'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Dampak sosial dan Lingkungan <span class="tx-danger">*</span></label>
+          <textarea name="text7" class="form-control" cols="4" rows="10" id="text7" disabled><?php echo $data2['dampak'] ?></textarea>
+        </div>
 
+      </div><!-- /home1-->
+      <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile-tab">
+        <br>
+        <div class="form-group">
+          <label class="form-control-label">Kearifan Lokal <span class="tx-danger">*</span></label>
+          <textarea name="text8" class="form-control" cols="4" rows="10" id="text8" disabled><?php echo $data2['kearifan'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Kreativitas <span class="tx-danger">*</span></label>
+          <textarea name="text9" class="form-control" cols="4" rows="10" id="text9" disabled><?php echo $data2['kreativitas'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Cita Rasa <span class="tx-danger">*</span></label>
+          <textarea name="text10" class="form-control" cols="4" rows="10" id="text10" disabled><?php echo $data2['citra_rasa'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Varian Produk <span class="tx-danger">*</span></label>
+          <textarea name="text11" class="form-control" cols="4" rows="10"id="text11" disabled><?php echo $data2['varian'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Keunikan <span class="tx-danger">*</span></label>
+          <textarea name="text12" class="form-control" cols="4" rows="10" id="text12" disabled><?php echo $data2['keunikan'] ?></textarea>
+        </div>
+      </div><!-- profile1-->
+      <div class="tab-pane fade" id="kemasan" role="tabpanel" aria-labelledby="home-tab">
+        <br>
+        <div class="form-group">
+          <label class="form-control-label">Jenis Kemasan <span class="tx-danger">*</span></label>
+          <textarea name="text13" class="form-control" cols="4" rows="10" id="text13" disabled><?php echo $data2['jenis_kemasan'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Visual/Desain Kemasan <span class="tx-danger">*</span></label>
+          <textarea name="text14" class="form-control" cols="4" rows="10" id="text14" disabled><?php echo $data2['visual'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Atribut Kemasan <span class="tx-danger">*</span></label>
+          <textarea name="text18" class="form-control" cols="4" rows="10" id="text18" disabled><?php echo $data2['attribut'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Daya tahan Kemasan<span class="tx-danger">*</span></label>
+          <textarea name="text19" class="form-control" cols="4" rows="10"id="text19" disabled><?php echo $data2['daya_tahan'] ?></textarea>
+        </div>
+        
+      </div><!-- kemasan -->
+      <div class="tab-pane fade " id="manajemen" role="tabpanel" aria-labelledby="home-tab">
+        <br>
+        <div class="form-group">
+          <label class="form-control-label">Struktur Organisasi<span class="tx-danger">*</span></label>
+          <textarea name="text20" class="form-control" cols="4" rows="10" id="text20" disabled><?php echo $data2['struktur'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Adminitrasi <span class="tx-danger">*</span></label>
+          <textarea name="text21" class="form-control" cols="4" rows="10" id="text21" disabled><?php echo $data2['administrasi'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Keuangan <span class="tx-danger">*</span></label>
+          <textarea name="text22" class="form-control" cols="4" rows="10" id="text22" disabled><?php echo $data2['keuangan'] ?></textarea>
+        </div>
+        
+      </div><!-- manajemen -->
+      <div class="tab-pane fade " id="pemasaran" role="tabpanel" aria-labelledby="home-tab">
+        <br>
+        <div class="form-group">
+          <label class="form-control-label">Retail <span class="tx-danger">*</span></label>
+          <textarea name="text23" class="form-control" cols="4" rows="10" id="text23" disabled><?php echo $data2['retail'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">B to B dengan Perusahaan lain <span class="tx-danger">*</span></label>
+          <textarea name="text24" class="form-control" cols="4" rows="10" id="text24" disabled><?php echo $data2['b_t_b'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Export <span class="tx-danger">*</span></label>
+          <textarea name="text25" class="form-control" cols="4" rows="10" id="text25" disabled><?php echo $data2['export'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">B to C<span class="tx-danger">*</span></label>
+          <textarea name="text26" class="form-control" cols="4" rows="10" id="text26" disabled><?php echo $data2['b_t_c'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Reseller dan Agen<span class="tx-danger">*</span></label>
+          <textarea name="text27" class="form-control" cols="4" rows="10" id="text27" disabled><?php echo $data2['reseller'] ?></textarea>
+        </div>
+      </div><!-- pemasaran -->
+      <div class="tab-pane fade " id="digital" role="tabpanel" aria-labelledby="home-tab">
+        <br>
+        <div class="form-group">
+          <label class="form-control-label">Media Sosial dan Konten <span class="tx-danger">*</span></label>
+          <textarea name="text28" class="form-control" cols="4" rows="10" id="text28" disabled><?php echo $data2['media'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Marketplace<span class="tx-danger">*</span></label>
+          <textarea name="text29" class="form-control" cols="4" rows="10" id="text29" disabled><?php echo $data2['market'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">website <span class="tx-danger">*</span></label>
+          <textarea name="text30" class="form-control" cols="4" rows="10" id="text30" disabled><?php echo $data2['website'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">e-Payment<span class="tx-danger">*</span></label>
+          <textarea name="text31" class="form-control" cols="4" rows="10" id="text31" disabled><?php echo $data2['e_payment'] ?></textarea>
+        </div>
+        
+      </div><!-- digital -->
+      <div class="tab-pane fade custom" id="contact1" role="tabpanel" aria-labelledby="contact-tab">
+        <br>
+        <div class="form-group">
+          <label class="form-control-label">Perijinan Dasar UMKM<span class="tx-danger">*</span></label>
+          <textarea name="text32" class="form-control" cols="4" rows="10"id="text32" disabled><?php echo $data2['perijinan_dasar'] ?></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Perijinan Tingkat Lanjut<span class="tx-danger">*</span></label>
+          <textarea name="text33" class="form-control" cols="4" rows="10"id="text33" disabled><?php echo $data2['perijinan_tingkat'] ?></textarea>
+        </div>
+        
+      </div><!-- contact1 -->
+      <!-- button Edit-->
+      <button type="button" id="aktif3" class="btn btn-primary " onclick="myFunction()"> <i class="fa fa-pen"></i> Update Data</button>
+  <input type="submit" id="simpan3" class="btn btn-primary " name="ubah" value="+ Simpan" hidden>
+    </form>
+    </div><!-- tab content -->
+      </div><!-- end nilai tab -->
+        
 <div id="Tokyo" class="tabcontent">  
   <div class="row">
       <h6> Foto Tempat Usaha/ Tempat produksi Max.10 </h6><hr>
@@ -843,7 +1060,7 @@ $mydata = mysqli_fetch_assoc($result2)
             <div class="position-relative">
               <a class="d-block  border-radius-xl">
                  <a href="aksi/download.php?filename='.$data2['gambar_produk'].'&id_ikm='.$data2['id_ikm'].'">
-                <img src="media/'.$data2['gambar_produk'].'" alt="img-blur-shadow" class="img-fluid border-radius-xl" width="300">
+                <img src="media/tempat_usaha/'.$data2['gambar_produk'].'" alt="img-blur-shadow" class="img-fluid border-radius-xl" width="300">
                   </a>
             </a>
         </div>
@@ -890,8 +1107,6 @@ $mydata = mysqli_fetch_assoc($result2)
 </div>
 </div>
 </div>
-<br>
-<br>
 </div>
 
 <div class="row">
@@ -916,7 +1131,7 @@ $mydata = mysqli_fetch_assoc($result2)
         <p class="text-gradient text-dark mb-2 text-sm">Project #2</p>
         <div class="d-flex align-items-center justify-content-between">
         
-                        <a href="aksi/hapus_gallery.php?id_gambar='.$data2['id_gambar'].'&id_ikm='.$data2['id_ikm'].'"  >
+                        <a href="aksi/hapus_gallery_produk.php?id_gambar='.$data2['id_gambar'].'&id_ikm='.$data2['id_ikm'].'"  >
                         <button type="button" class="btn btn-outline-primary btn-sm mb-0">Hapus</button></a>
                         <div class="avatar-group mt-2">
                           <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Elena Morison">
@@ -937,6 +1152,7 @@ $mydata = mysqli_fetch_assoc($result2)
     </div>
     </div>
 </div>'; } ?>
+
 <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
   <div class="card h-100 card-plain border">
     <div class="card-body d-flex flex-column justify-content-center text-center">
@@ -956,219 +1172,47 @@ $mydata = mysqli_fetch_assoc($result2)
 <br>
 <br>
 </div>
-
+      </div>
 </div>
 </main>
 
+<!-- extras modal -->
+<?php include'../assets/tapbar.php' ?>
+<?php include'../assets/modal_ubah_foto.php' ?>
+<!-- Bootstrap core JavaScript -->
+<!--   Core JS Files   -->
 <!-- Modal -->
-<div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="change" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload Gambar Tempat Usaha</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <form action="aksi/upload_produk.php" method="POST" class="upload" enctype="multipart/form-data">
-        <?php
-        
-        // https://www.malasngoding.com
-        // menghubungkan dengan koneksi database
-        include '../assets/koneksi.php';
-        
-        // mengambil data barang dengan kode paling besar
-        $query = mysqli_query($koneksi, "SELECT max(id_gambar) as kodeTerbesar FROM tb_media_produksi");
-        $data = mysqli_fetch_array($query);
-        $kodeBarang = $data['kodeTerbesar'];
-        
-        // mengambil angka dari kode barang terbesar, menggunakan fungsi substr
-        // dan diubah ke integer dengan (int)
-        $urutan = (int) substr($kodeBarang, 3, 3);
-        
-        // bilangan yang diambil ini ditambah 1 untuk menentukan nomor urut berikutnya
-        $urutan++;
-        
-        // membentuk kode barang baru
-        // perintah sprintf("%03s", $urutan); berguna untuk membuat string menjadi 3 karakter
-        // misalnya perintah sprintf("%03s", 15); maka akan menghasilkan '015'
-        // angka yang diambil tadi digabungkan dengan kode huruf yang kita inginkan, misalnya BRG 
-        $huruf = "gbr";
-        $kodeBarang = $huruf . sprintf("%03s", $urutan);
-        
-        ?>
-        <input name="id_gambar" value="<?= $kodeBarang ?>" hidden>
-        
-        <input type="file" multiple  class="upload" name="foto">
-        <p>Drag your files here or click in this area.</p>
-    </div>
-    <input name="id_ikm" value="<?= $_GET['id_ikm'] ?>" hidden>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-block">Upload</button>
-    </form>
-</div>
-</div>
-</div>
-</div>
-<?php include'../assets/modal_ubah_foto.php'; ?>
-
-<!-- Modal -->
-<div class="modal fade" id="input-produk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload Gambar Produk</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <form action="aksi/upload_produksi.php" method="POST" class="upload" enctype="multipart/form-data">
-        <?php
-        
-        // https://www.malasngoding.com
-        // menghubungkan dengan koneksi database
-        include '../assets/koneksi.php';
-        
-        // mengambil data barang dengan kode paling besar
-        $query = mysqli_query($koneksi, "SELECT max(id_gambar) as kodeTerbesar FROM tb_media_produksi");
-        $data = mysqli_fetch_array($query);
-        $kodeBarang = $data['kodeTerbesar'];
-        
-        // mengambil angka dari kode barang terbesar, menggunakan fungsi substr
-        // dan diubah ke integer dengan (int)
-        $urutan = (int) substr($kodeBarang, 3, 3);
-        
-        // bilangan yang diambil ini ditambah 1 untuk menentukan nomor urut berikutnya
-        $urutan++;
-        
-        // membentuk kode barang baru
-        // perintah sprintf("%03s", $urutan); berguna untuk membuat string menjadi 3 karakter
-        // misalnya perintah sprintf("%03s", 15); maka akan menghasilkan '015'
-        // angka yang diambil tadi digabungkan dengan kode huruf yang kita inginkan, misalnya BRG 
-        $huruf = "gbr";
-        $kodeBarang = $huruf . sprintf("%03s", $urutan);
-        
-        ?>
-        <input name="id_gambar1" value="<?= $kodeBarang ?>" hidden>
-        
-        <input type="file" multiple  class="upload" name="foto2">
-        <p>Drag your files here or click in this area.</p>
-    </div>
-    <input name="id_ikm" value="<?= $_GET['id_ikm'] ?>" hidden>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-block">Upload</button>
-    </form>
-</div>
-</div>
-</div>
-</div>
-
-<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Ubah Foto Profile</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+     
       <div class="modal-body">
-        ...
+      <form action="aksi/upload_profile.php" method="POST"  enctype="multipart/form-data">
+        <input type="file" name="foto" class="form-control">
+      
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+      </form>
       </div>
     </div>
   </div>
 </div>
-<!-- extras modal -->
-<?php include'../assets/tapbar.php' ?>
-
-<!-- Bootstrap core JavaScript -->
-<!--   Core JS Files   -->
-<script>
-
-$(document).ready(function(){
-
-	var $modal = $('#modal');
-
-	var image = document.getElementById('sample_image');
-
-	var cropper;
-
-	$('#upload_image').change(function(event){
-		var files = event.target.files;
-
-		var done = function(url){
-			image.src = url;
-			$modal.modal('show');
-		};
-
-		if(files && files.length > 0)
-		{
-			reader = new FileReader();
-			reader.onload = function(event)
-			{
-				done(reader.result);
-			};
-			reader.readAsDataURL(files[0]);
-		}
-	});
-
-	$modal.on('shown.bs.modal', function() {
-		cropper = new Cropper(image, {
-			aspectRatio: 1,
-			viewMode: 3,
-			preview:'.preview'
-		});
-	}).on('hidden.bs.modal', function(){
-		cropper.destroy();
-   		cropper = null;
-	});
-
-	$('#crop').click(function(){
-		canvas = cropper.getCroppedCanvas({
-			width:400,
-			height:400
-		});
-
-		canvas.toBlob(function(blob){
-			url = URL.createObjectURL(blob);
-			var reader = new FileReader();
-			reader.readAsDataURL(blob);
-			reader.onloadend = function(){
-				var base64data = reader.result;
-				$.ajax({
-					url:'#.php',
-					method:'POST',
-					data:{image:base64data},
-					success:function(data)
-					{
-						$modal.modal('hide');
-						$('#uploaded_image').attr('src', data);
-					}
-				});
-			};
-		});
-	});
-	
-});
-</script>
 
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script src="../assets/js/plugins/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.js" crossorigin="anonymous"></script>
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -1207,6 +1251,10 @@ document.getElementById("defaultOpen").click();
 </script>
 <script>
   function myFunction() {
+    document.getElementById("simpan3").hidden = false;
+    document.getElementById("aktif3").hidden = true;
+    document.getElementById("simpan2").hidden = false;
+    document.getElementById("aktif2").hidden = true;
     document.getElementById("aktif").hidden = true;
     document.getElementById("ubah").hidden = false;  
     document.getElementById("jenis_produk").disabled = false;
@@ -1221,6 +1269,55 @@ document.getElementById("defaultOpen").click();
     document.getElementById("komposisi").disabled = false;
     document.getElementById("redaksi").disabled = false;
     document.getElementById("keterangan").disabled = false;
+document.getElementById("nama_ikm").disabled = false;
+document.getElementById("keterangan").disabled = false;
+document.getElementById("email").disabled = false;
+document.getElementById("telp").disabled = false;
+document.getElementById("alamat").disabled = false;
+document.getElementById("jk").disabled = false;
+document.getElementById("nama_perusahaan").disabled = false;
+document.getElementById("nib").disabled = false;
+document.getElementById("pirt").disabled = false;
+document.getElementById("layak").disabled = false;
+document.getElementById("hallal").disabled = false;
+document.getElementById("cppob").disabled = false;
+document.getElementById("iso").disabled = false;
+document.getElementById("haki").disabled = false;
+document.getElementById("haccp").disabled = false;
+document.getElementById("legalitas").disabled = false;
+document.getElementById("media_penjualan").disabled = false;
+document.getElementById("kapasitas").disabled = false;
+document.getElementById("omset").disabled = false;
+document.getElementById("text1").disabled = false;
+document.getElementById("text2").disabled = false;
+document.getElementById("text3").disabled = false;
+document.getElementById("text4").disabled = false;
+document.getElementById("text5").disabled = false;
+document.getElementById("text6").disabled = false;
+document.getElementById("text7").disabled = false;
+document.getElementById("text8").disabled = false;
+document.getElementById("text9").disabled = false;
+document.getElementById("text10").disabled = false;
+document.getElementById("text11").disabled = false;
+document.getElementById("text12").disabled = false;
+document.getElementById("text13").disabled = false;
+document.getElementById("text14").disabled = false;
+document.getElementById("text18").disabled = false;
+document.getElementById("text19").disabled = false;
+document.getElementById("text20").disabled = false;
+document.getElementById("text21").disabled = false;
+document.getElementById("text22").disabled = false;
+document.getElementById("text23").disabled = false;
+document.getElementById("text24").disabled = false;
+document.getElementById("text25").disabled = false;
+document.getElementById("text26").disabled = false;
+document.getElementById("text27").disabled = false;
+document.getElementById("text28").disabled = false;
+document.getElementById("text29").disabled = false;
+document.getElementById("text30").disabled = false;
+document.getElementById("text31").disabled = false;
+document.getElementById("text32").disabled = false;
+document.getElementById("text33").disabled = false;
 }
 </script>
 

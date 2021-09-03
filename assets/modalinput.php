@@ -151,21 +151,13 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
 <div class="col-lg-6">
   <div class="form-group">
     <label class="form-control-label">Kapasitas Produksi (Per)<span class="tx-danger">*</span></label>
-    <select class="form-control" type="text" name="kapasitas_produksi" id="kapasitas_produksi" Required>
-      <option>hari</option>
-      <option>Bulan</option>
-      <option>Tahun</option>
-  </select>
+    <input type="text" name="kapasitas_produksi" id="kapasitas_produksi" class="form-control" Required >
 </div>
 </div>
 <div class="col-lg-6">
   <div class="form-group">
     <label class="form-control-label">Omset(Per)<span class="tx-danger">*</span></label>
-    <select class="form-control" type="text" name="omset" id="omset" Required>
-      <option>Bulan</option>
-      <option>Tahun</option>
-      
-  </select>
+    <input type="text" name="omset" id="kapasitas_produksi" class="form-control" Required >
 </div>
 </div>
 <div class="col-lg-6">

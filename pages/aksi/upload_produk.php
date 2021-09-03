@@ -11,13 +11,13 @@ $id_gambar=$_POST['id_gambar'];
 
 
     if($ukuran > $limit){
-		header("location:../index?pesan=gagal");		
+		header("location:../profile?pesan=gagal");		
 	}else{	
-			move_uploaded_file($tmp, '../media/'.$namafile);
+			move_uploaded_file($tmp, '../media/tempat_usaha/'.$namafile);
 			$x = $namafile;
-            $query = "INSERT INTO tb_media_produksi VALUES ('$id_gambar','$id','$x')";
+            $query = "INSERT INTO tb_media_produksi VALUES ('','$id','$x')";
             $result = mysqli_query($koneksi, $query);
-			header("location:../profile?id_ikm=$id&pesan=simpan");
+			header("location:../profile.php?id_ikm=$id&pesan=simpan");
 		
 	}
 ?>  

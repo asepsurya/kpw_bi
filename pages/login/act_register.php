@@ -18,7 +18,7 @@ if($password == $password2){
           header("location:../register?pesan=sudah_ada");
         }else{
          // jalankan query INSERT untuk menambah data ke database
-        $query = "INSERT INTO user VALUES ('','$nama','$username','$password2','2','','a.jpg','0')";
+        $query = "INSERT INTO user VALUES ('','$nama','$username','$password2','2','','default.png','0')";
         $result = mysqli_query($koneksi, $query);
     
         header("location:../login.php?pesan=tambah");
