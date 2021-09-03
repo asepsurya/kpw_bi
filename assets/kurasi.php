@@ -62,7 +62,10 @@
         <?php } ?>
     </ul>
     <form action="../pages/aksi/kurasi_aksi.php" method="POST" enctype="multipart/form-data">
+<<<<<<< HEAD
     <input type="text" name="id_ikm2" class="form-control" id="nama">
+=======
+>>>>>>> 2e7f1cebf875ca3638cef7e41295c216fe17b689
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home1" role="tabpanel" aria-labelledby="home-tab">
         <br>
@@ -211,7 +214,6 @@
               <textarea name="text33" class="form-control" cols="4" rows="10"></textarea>
           </div>
           
-
 </div><br>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
