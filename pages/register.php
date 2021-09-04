@@ -181,6 +181,8 @@
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <?php include'../assets/alert.php'; ?>
   <script type="text/javascript">
 	$(document).ready(function(){		
 		$('.form-checkbox').click(function(){

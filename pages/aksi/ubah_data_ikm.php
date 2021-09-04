@@ -30,7 +30,9 @@ die("Connection failed: " . mysqli_connect_error());
   $kapasitas_produksi = $_POST['kapasitas'];
  // $logo_perusahaan = $_POST['logo_perusahaan'];
   $media_penjualan = $_POST['media_penjualan']; 
+  $deskripsi = $koneksi -> real_escape_string($_POST['deskripsi']); 
  
+
   
     // jalankan query INSERT untuk menambah data ke database
 
@@ -59,8 +61,43 @@ die("Connection failed: " . mysqli_connect_error());
       header("location:../profile.php?id_ikm=$id_ikm&gagal");
       $_SESSION['gagal']=" Data Gagal Diubah Mohon Periksa Kembali Data Anda";    
     }
-    
-  
-// melakukan redirect (mengalihkan) ke halaman index.php
+      
+// Deklarasi dokumen 1
+$namafile = $_FILES['doc1']['name'];
+$tmp = $_FILES['doc1']['tmp_name'];
+$tipe_file = pathinfo($namafile, PATHINFO_EXTENSION);
+$ukuran = $_FILES['doc1']['size'];
+ // Deklarasi dokumen 1
+$namafile2 = $_FILES['doc2']['name'];
+$tmp2 = $_FILES['doc2']['tmp_name'];
+$tipe_file2 = pathinfo($namafile, PATHINFO_EXTENSION);
+$ukuran2 = $_FILES['doc2']['size'];
+$temp='../media/dokumen/';
 
+    move_uploaded_file($_FILES["doc1"]["tmp_name"], $temp.$namafile);
+    move_uploaded_file($_FILES["doc2"]["tmp_name"], $temp.$namafile2);
+  
+	  $x = $namafile;
+    $y= $namafile2;
+if($x or $y){
+    if($x == ""){
+      $query = "UPDATE tb_dokumen SET dokumen_legalitas='$y' WHERE id_ikm='$id_ikm'";
+      $result = mysqli_query($koneksi, $query);
+    }else{
+      $query = "UPDATE tb_dokumen SET dokumen_compro='$x' WHERE id_ikm='$id_ikm'";
+      $result = mysqli_query($koneksi, $query);
+      
+    }
+  }
+    $query5 = "SELECT * from tb_deskripsi_usaha where id_ikm ='$id_ikm'";
+    $result3 = mysqli_query($koneksi, $query5);
+    $cek= mysqli_num_rows($result3);
+  if($cek > 0){
+    $query = "UPDATE tb_deskripsi_usaha SET deskripsi='$deskripsi' WHERE id_ikm='$id_ikm'";
+    $result = mysqli_query($koneksi, $query);
+  }else{
+    $query = "INSERT INTO tb_deskripsi_usaha VALUES ('$id_ikm','$deskripsi')";
+    $result = mysqli_query($koneksi, $query);
+  }
+    header("location:../profile.php?id_ikm=$id_ikm&pesan=simpan");
 ?>

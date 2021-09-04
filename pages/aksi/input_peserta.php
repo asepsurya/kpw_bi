@@ -89,5 +89,5 @@ $cek = mysqli_num_rows($data1);
 }
 $a=$_SESSION['id_ikm'];
 // melakukan redirect (mengalihkan) ke halaman index.php
-header("location:../profile?id_ikm=$a");
+header("location:../profile?id_ikm=$a&pesan=simpan");
 ?>

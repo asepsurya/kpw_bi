@@ -138,13 +138,10 @@ session_start();
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
-        
+      <h6 class="font-weight-bolder mb-0">Profile UMKM</h6>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group">
-              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="Type here...">
-          </div>
+          
       </div>
       <ul class="navbar-nav  justify-content-end">
         <li class="nav-item d-flex align-items-center">
@@ -162,82 +159,7 @@ session_start();
       </div>
   </a>
 </li>
-<li class="nav-item px-3 d-flex align-items-center">
-  <a href="javascript:;" class="nav-link text-body p-0">
-    <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-</a>
-</li>
-<li class="nav-item dropdown pe-2 d-flex align-items-center">
-  <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="fa fa-bell cursor-pointer"></i>
-</a>
-<ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-    <li class="mb-2">
-      <a class="dropdown-item border-radius-md" href="javascript:;">
-        <div class="d-flex py-1">
-          <div class="my-auto">
-            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-        </div>
-        <div class="d-flex flex-column justify-content-center">
-            <h6 class="text-sm font-weight-normal mb-1">
-              <span class="font-weight-bold">New message</span> from Laur
-          </h6>
-          <p class="text-xs text-secondary mb-0">
-              <i class="fa fa-clock me-1"></i>
-              13 minutes ago
-          </p>
-      </div>
-  </div>
-</a>
-</li>
-<li class="mb-2">
-  <a class="dropdown-item border-radius-md" href="javascript:;">
-    <div class="d-flex py-1">
-      <div class="my-auto">
-        <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
-    </div>
-    <div class="d-flex flex-column justify-content-center">
-        <h6 class="text-sm font-weight-normal mb-1">
-          <span class="font-weight-bold">New album</span> by Travis Scott
-      </h6>
-      <p class="text-xs text-secondary mb-0">
-          <i class="fa fa-clock me-1"></i>
-          1 day
-      </p>
-  </div>
-</div>
-</a>
-</li>
-<li>
-  <a class="dropdown-item border-radius-md" href="javascript:;">
-    <div class="d-flex py-1">
-      <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <title>credit-card</title>
-          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-              <g transform="translate(1716.000000, 291.000000)">
-                <g transform="translate(453.000000, 454.000000)">
-                  <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                  <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-              </g>
-          </g>
-      </g>
-  </g>
-</svg>
-</div>
-<div class="d-flex flex-column justify-content-center">
-    <h6 class="text-sm font-weight-normal mb-1">
-      Payment successfully completed
-  </h6>
-  <p class="text-xs text-secondary mb-0">
-      <i class="fa fa-clock me-1"></i>
-      2 days
-  </p>
-</div>
-</div>
-</a>
-</li>
+
 </ul>
 </li>
 </ul>
@@ -436,7 +358,7 @@ $data3 = mysqli_fetch_array($result2)
 </div>
 
 <div id="Paris" class="tabcontent">
-<form action="aksi/ubah_data_ikm.php" method="POST">
+<form action="aksi/ubah_data_ikm.php" method="POST" enctype="multipart/form-data">
     <div class="row mg-b-25">
       <div class="col-lg-4">
         <div class="form-group">
@@ -466,7 +388,7 @@ $data3 = mysqli_fetch_array($result2)
 <div class="col-lg-4">
     <div class="form-group mg-b-10-force">
       <label class="form-control-label">Jenis Kelamin </label>
-      <select class="form-control select2" data-placeholder="Choose country" name="gender" Required id="jk" disabled>
+      <select class="form-control select2" data-placeholder="Choose country" name="gender" Required id="jk" >
         <?php
         if($data['gender']=="L"){
           echo' <option value="L" selected>Laki - Laki</option>';
@@ -561,22 +483,52 @@ $mydata = mysqli_fetch_assoc($result2)
       <small>*Contoh : Facebook, Instagram dll</small>
   </div>
 </div>
-
+<div class="col-lg-12">
+    <div class="form-group">
+      <?php 
+       $query5 = "SELECT * from tb_deskripsi_usaha where id_ikm='$_GET[id_ikm]'";
+       $result3 = mysqli_query($koneksi, $query5);
+       $mydata = mysqli_fetch_assoc($result3);
+       $cek=mysqli_num_rows($result3);
+            if($cek > 0){
+                echo'
+                <label class="form-control-label">Deskripsi Usaha</label>
+                <textarea class="form-control" type="text" name="deskripsi" id="deskripsi" cols="5" rows="10" disabled placeholder="Media Penjualan">'.$mydata['deskripsi'].'</textarea>
+                ';
+            }
+       ?>  
+  </div>
+  <button type="button" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#deskripsi_usaha"> + Deskripsi Usaha </button>
+</div>
+<?php
+   $query4 = "SELECT * from tb_dokumen where id_ikm='$_GET[id_ikm]'";
+   $result2 = mysqli_query($koneksi, $query4);
+   $data4 = mysqli_fetch_assoc($result2);
+   $cek=mysqli_num_rows($result2);
+   ?>
    
-
 <div class="col-lg-6">
 <div class="form-group">
   <label>  Company Profile / Deskripsi Perusahaan</label><br>
-  <input type="file" name="doc1" class="form-control"><br>
-  <button type="button" class="btn btn-default"> Download Dokumen</button>
+  <input type="file" name="doc1" class="form-control">
+  <small> Dokumen harus ber-Exstensi .doc atau pdf</small><br><br>
+  <?php
+  if($data4['dokumen_compro']){
+    echo'<a href="aksi/download_doc.php?filename='.$data4['dokumen_compro'].'&id_ikm='.$data4['id_ikm'].'">
+    <button type="button" class="btn btn-default"> Download Dokumen</button>
+        </a>';
+  } 
+  
+  ?>
   
 </div>
 </div>
 <div class="col-lg-6">
 <div class="form-group">
   <label> Foto Sertifikat / legalitas <br><br>
-  <input type="file" name="doc2" class="form-control"><br>
-  <button type="button" class="btn btn-default"> Tampilkan Gambar </button>
+  <input type="file" name="doc2" class="form-control">
+  <small> Exstensi Support .jpg, .png </small><br><br>
+  <button type="button" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#serti"> Tampilkan Gambar </button>
 </div>
 </div>
 </div>
@@ -588,44 +540,7 @@ $mydata = mysqli_fetch_assoc($result2)
 </div>
 <div id="laporan" class="tabcontent">
 <div class="row">
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                  <div class="card card-blog card-plain">
-                    <div class="position-relative">
-                      <a class="d-block shadow-xl border-radius-xl">
-                        <img src="media/25.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
-                      </a>
-                    </div>
-                    <div class="card-body px-1 pb-0">
-                      
-                      <p class="text-gradient text-dark mb-2 text-sm">Project #2</p>
-                      <a href="javascript:;">
-                        <h5>
-                         Dokumen Brainstorming
-                        </h5>
-                      </a>
-                      <p class="mb-4 text-sm">
-                        As Uber works through a huge amount of internal management turmoil.
-                      </p>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">Download</button>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Elena Morison">
-                            <img alt="Image placeholder" src="../assets/img/team-1.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Ryan Milly">
-                            <img alt="Image placeholder" src="../assets/img/team-2.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Nick Daniel">
-                            <img alt="Image placeholder" src="../assets/img/team-3.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Peterson">
-                            <img alt="Image placeholder" src="../assets/img/team-4.jpg">
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+             
                 <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
                   <div class="card card-blog card-plain">
                     <div class="position-relative">
@@ -634,17 +549,18 @@ $mydata = mysqli_fetch_assoc($result2)
                       </a>
                     </div>
                     <div class="card-body px-1 pb-0">
-                      <p class="text-gradient text-dark mb-2 text-sm">Project #1</p>
+                      <p class="text-gradient text-dark mb-2 text-sm"><?= date('d/m/Y') ?></p>
                       <a href="javascript:;">
                         <h5>
                           Laporan Kurasi
                         </h5>
                       </a>
                       <p class="mb-4 text-sm">
-                        Music is something that every person has his or her own specific opinion about.
+                        
                       </p>
                       <div class="d-flex align-items-center justify-content-between">
-                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">Download</button>
+                      <a href="../exsport/exsport.php?id_ikm=<?= $data['id_ikm'] ?>" target="_blank">
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">Download</button></a>
                         <div class="avatar-group mt-2">
                           <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Nick Daniel">
                             <img alt="Image placeholder" src="../assets/img/team-3.jpg">
@@ -663,193 +579,7 @@ $mydata = mysqli_fetch_assoc($result2)
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                  <div class="card card-blog card-plain">
-                    <div class="position-relative">
-                      <a class="d-block shadow-xl border-radius-xl">
-                        <img src="media/25.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
-                      </a>
-                    </div>
-                    <div class="card-body px-1 pb-0">
-                      <p class="text-gradient text-dark mb-2 text-sm">Project #1</p>
-                      <a href="javascript:;">
-                        <h5>
-                          Scandinavian
-                        </h5>
-                      </a>
-                      <p class="mb-4 text-sm">
-                        Music is something that every person has his or her own specific opinion about.
-                      </p>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">Download</button>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Nick Daniel">
-                            <img alt="Image placeholder" src="../assets/img/team-3.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Peterson">
-                            <img alt="Image placeholder" src="../assets/img/team-4.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Elena Morison">
-                            <img alt="Image placeholder" src="../assets/img/team-1.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Ryan Milly">
-                            <img alt="Image placeholder" src="../assets/img/team-2.jpg">
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-               
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                  <div class="card card-blog card-plain">
-                    <div class="position-relative">
-                      <a class="d-block shadow-xl border-radius-xl">
-                        <img src="media/25.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
-                      </a>
-                    </div>
-                    <div class="card-body px-1 pb-0">
-                      <p class="text-gradient text-dark mb-2 text-sm">Project #1</p>
-                      <a href="javascript:;">
-                        <h5>
-                          Scandinavian
-                        </h5>
-                      </a>
-                      <p class="mb-4 text-sm">
-                        Music is something that every person has his or her own specific opinion about.
-                      </p>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">Download</button>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Nick Daniel">
-                            <img alt="Image placeholder" src="../assets/img/team-3.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Peterson">
-                            <img alt="Image placeholder" src="../assets/img/team-4.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Elena Morison">
-                            <img alt="Image placeholder" src="../assets/img/team-1.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Ryan Milly">
-                            <img alt="Image placeholder" src="../assets/img/team-2.jpg">
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4"> <br><br>
-                  <div class="card card-blog card-plain">
-                    <div class="position-relative">
-                      <a class="d-block shadow-xl border-radius-xl">
-                        <img src="media/25.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
-                      </a>
-                    </div>
-                    <div class="card-body px-1 pb-0">
-                      <p class="text-gradient text-dark mb-2 text-sm">Project #1</p>
-                      <a href="javascript:;">
-                        <h5>
-                          Scandinavian
-                        </h5>
-                      </a>
-                      <p class="mb-4 text-sm">
-                        Music is something that every person has his or her own specific opinion about.
-                      </p>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">Download</button>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Nick Daniel">
-                            <img alt="Image placeholder" src="../assets/img/team-3.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Peterson">
-                            <img alt="Image placeholder" src="../assets/img/team-4.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Elena Morison">
-                            <img alt="Image placeholder" src="../assets/img/team-1.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Ryan Milly">
-                            <img alt="Image placeholder" src="../assets/img/team-2.jpg">
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4"> <br><br>
-                  <div class="card card-blog card-plain">
-                    <div class="position-relative">
-                      <a class="d-block shadow-xl border-radius-xl">
-                        <img src="media/25.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
-                      </a>
-                    </div>
-                    <div class="card-body px-1 pb-0">
-                      <p class="text-gradient text-dark mb-2 text-sm">Project #1</p>
-                      <a href="javascript:;">
-                        <h5>
-                          Scandinavian
-                        </h5>
-                      </a>
-                      <p class="mb-4 text-sm">
-                        Music is something that every person has his or her own specific opinion about.
-                      </p>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">Download</button>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Nick Daniel">
-                            <img alt="Image placeholder" src="../assets/img/team-3.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Peterson">
-                            <img alt="Image placeholder" src="../assets/img/team-4.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Elena Morison">
-                            <img alt="Image placeholder" src="../assets/img/team-1.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Ryan Milly">
-                            <img alt="Image placeholder" src="../assets/img/team-2.jpg">
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4"> <br><br>
-                  <div class="card card-blog card-plain">
-                    <div class="position-relative">
-                      <a class="d-block shadow-xl border-radius-xl">
-                        <img src="media/25.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
-                      </a>
-                    </div>
-                    <div class="card-body px-1 pb-0">
-                      <p class="text-gradient text-dark mb-2 text-sm">Project #3</p>
-                      <a href="javascript:;">
-                        <h5>
-                          Minimalist
-                        </h5>
-                      </a>
-                      <p class="mb-4 text-sm">
-                        Different people have different taste, and various types of music.
-                      </p>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">Download</button>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Peterson">
-                            <img alt="Image placeholder" src="../assets/img/team-4.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Nick Daniel">
-                            <img alt="Image placeholder" src="../assets/img/team-3.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Ryan Milly">
-                            <img alt="Image placeholder" src="../assets/img/team-2.jpg">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Elena Morison">
-                            <img alt="Image placeholder" src="../assets/img/team-1.jpg">
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-               <br>
+                         <br>
               </div>
 </div>
 <!-- tab penilaian Produk -->
@@ -1179,6 +909,8 @@ $mydata = mysqli_fetch_assoc($result2)
 <!-- extras modal -->
 <?php include'../assets/tapbar.php' ?>
 <?php include'../assets/modal_ubah_foto.php' ?>
+<?php include'../assets/modal_deskripsi.php' ?>
+<?php include'../assets/modal_tampil_serti.php' ?>
 <!-- Bootstrap core JavaScript -->
 <!--   Core JS Files   -->
 <!-- Modal -->
@@ -1213,6 +945,11 @@ $mydata = mysqli_fetch_assoc($result2)
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <?php include'../assets/alert.php'; ?>
+  <?php include'../assets/modalinput.php'; ?>
+  <?php include'../assets/kurasi.php'; ?>
+  
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -1318,6 +1055,7 @@ document.getElementById("text30").disabled = false;
 document.getElementById("text31").disabled = false;
 document.getElementById("text32").disabled = false;
 document.getElementById("text33").disabled = false;
+document.getElementById("deskripsi").disabled = false;
 }
 </script>
 <script>

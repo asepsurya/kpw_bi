@@ -80,7 +80,7 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
 <div class="col-lg-4">
     <div class="form-group mg-b-10-force">
       <label class="form-control-label">Jenis Kelamin <span class="tx-danger">*</span></label>
-      <select class="form-control select2" data-placeholder="Choose country" name="gender" Required>
+      <select class="form-control select2" data-placeholder="jenis kelamin" name="gender" Required>
         <option label="Pilih Gender"></option>
         <option value="L">Laki - Laki</option>
         <option value="P">Perempuan</option>

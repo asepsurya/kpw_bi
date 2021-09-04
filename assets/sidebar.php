@@ -9,6 +9,7 @@
         <span class="ms-1 font-weight-bold">Database Kurasi UMKM  </span>
       </a>
     </div>
+   
     <div class="sidenav  mx-3 ">
     <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn bg-gradient-primary mt-4 w-100"  type="button">+ Tambah Data</button>
 </div>
@@ -42,6 +43,7 @@
             </div>
             <span class="nav-link-text ms-1">Halaman Utama</span>
           </a>
+          
         </li>
         <?php
          
@@ -113,3 +115,4 @@
         </li>
       <?php } ?>
   </aside>
+  
