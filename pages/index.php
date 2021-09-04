@@ -65,9 +65,8 @@ session_start();
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           
-          <h6 class="font-weight-bolder mb-0">Halaman Utama</h6>
         </nav>
-        <div class="col-lg-6">
+        <div class="col-lg-6 ">
           <?php
           if($_SESSION['level']=="1" or $_SESSION['level']=="12" or $_SESSION['level']=="13" or $_SESSION['level']=="14"){
 
@@ -86,6 +85,7 @@ session_start();
     ?>
    
   </select>
+  <h7 class="font-weight-bolder mb-0">Halaman Utama</h7>
             </div>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
