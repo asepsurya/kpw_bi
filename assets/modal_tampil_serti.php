@@ -10,14 +10,23 @@
         <?php
          $query = "SELECT * from tb_dokumen where id_ikm='$_GET[id_ikm]'";
          $result = mysqli_query($koneksi, $query);
+         $cek=mysqli_num_rows($result);
          while($data=mysqli_fetch_assoc($result) ){
+            if($cek > 0){
               echo'<center><img src="../pages/media/dokumen/'.$data['dokumen_legalitas'].'" width="700"></center>';
+            }else{
+              echo'
+              <div class="form-group">
+              <center> Maaf Anda Belum Mengupload Dokumen ini</center>
+              </div>
+              ';
+            }
          }
         ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Simpan</button>
+       
       </div>
     </div>
   </div>

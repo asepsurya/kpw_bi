@@ -1,3 +1,6 @@
+<?php error_reporting(0); 
+include'koneksi.php';
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
@@ -9,11 +12,17 @@
         <span class="ms-1 font-weight-bold">Database Kurasi UMKM  </span>
       </a>
     </div>
-   
+   <?php
+   $query9 = "SELECT * from tb_ukm where id_ikm='$_SESSION[id_ikm]'";
+   $result9 = mysqli_query($koneksi, $query9);
+   $jumlah2 = mysqli_num_rows($result9);
+   if($jumlah2 > 0){
+   }else{
+   ?>
     <div class="sidenav  mx-3 ">
     <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn bg-gradient-primary mt-4 w-100"  type="button">+ Tambah Data</button>
 </div>
-
+<?php } ?>
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
@@ -47,8 +56,9 @@
         </li>
         <?php
          
-          if($_SESSION['level'] == "12" or $_SESSION['level'] == "1" or $_SESSION['level'] == "13" or $_SESSION['level'] == "14"){
-          ?>
+          if($_SESSION['level'] == "12" or $_SESSION['level'] == "1" or $_SESSION['level'] == "13" or $_SESSION['level'] == "14" ){
+            if($_GET['data'] != "profile"){
+            ?>
         <ul class="navbar-nav">
         <li class="nav-item">
         <a class="nav-link  " href="" data-bs-toggle="modal" data-bs-target="#kurasi">
@@ -61,7 +71,7 @@
           </a>
         </li>
        
-        <?php } ?>
+        <?php }} ?>
         <li class="nav-item mt-3">
           <?php
           include'koneksi.php';
@@ -88,10 +98,10 @@
           <?php
           if($_GET['id_ikm']== $data['id_ikm']){
             echo'
-            <a class="nav-link active" href="../pages/profile?id_ikm='.$data['id_ikm'].'">';
+            <a class="nav-link active" href="../pages/profile?id_ikm='.$data['id_ikm'].'&data=profile">';
           } else{
             echo'
-            <a class="nav-link " href="../pages/profile?id_ikm='.$data['id_ikm'].'">';
+            <a class="nav-link " href="../pages/profile?id_ikm='.$data['id_ikm'].'&data=profile">';
           }
           ?>
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

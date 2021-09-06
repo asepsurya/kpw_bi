@@ -29,9 +29,7 @@ session_start();
   <title>
     KPW Bank Indonesia - Data Peserta
 </title>
-<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.css" crossorigin="anonymous"/>
+
 <!--     Fonts and icons     -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 <!-- Nucleo Icons -->
@@ -42,6 +40,7 @@ session_start();
 <!-- Font Awesome Icons -->
 <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+
 
 <!-- CSS Files -->
 <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
@@ -495,10 +494,12 @@ $mydata = mysqli_fetch_assoc($result2)
                 <label class="form-control-label">Deskripsi Usaha</label>
                 <textarea class="form-control" type="text" name="deskripsi" id="deskripsi" cols="5" rows="10" disabled placeholder="Media Penjualan">'.$mydata['deskripsi'].'</textarea>
                 ';
+            }else{
+              echo'<button type="button" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#deskripsi_usaha"> + Deskripsi Usaha </button>';
             }
        ?>  
   </div>
-  <button type="button" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#deskripsi_usaha"> + Deskripsi Usaha </button>
+  
 </div>
 <?php
    $query4 = "SELECT * from tb_dokumen where id_ikm='$_GET[id_ikm]'";
@@ -585,9 +586,7 @@ $mydata = mysqli_fetch_assoc($result2)
 <!-- tab penilaian Produk -->
 <div id="nilai" class="tabcontent">
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <?php 
-    if($_SESSION['level']=="12" or $_SESSION['level']=="1"){
-    ?>
+  
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home1" type="button" role="tab" aria-controls="home" aria-selected="true">Produksi</button>
     </li>
@@ -597,27 +596,21 @@ $mydata = mysqli_fetch_assoc($result2)
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact1" type="button" role="tab" aria-controls="contact" aria-selected="false">Legalitas & Sertifikasi</button>
     </li>
-    <?php } ?>
-    <?php 
-    if($_SESSION['level']=="13" or $_SESSION['level']=="1"){
-    ?>
+   
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#kemasan" type="button" role="tab" aria-controls="contact" aria-selected="false"> Kemasan</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#manajemen" type="button" role="tab" aria-controls="contact" aria-selected="false"> Manajemen Usaha</button>
     </li>
-    <?php } ?>
-    <?php 
-    if($_SESSION['level']=="14" or $_SESSION['level']=="1"){
-    ?>
+  
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#pemasaran" type="button" role="tab" aria-controls="contact" aria-selected="false"> Pemasaran</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#digital" type="button" role="tab" aria-controls="contact" aria-selected="false"> Digital Marketing</button>
     </li>
-    <?php } ?>
+   
   </ul>
   <form action="aksi/update_kurasi.php" method="POST">
   <div class="tab-content" id="myTabContent">
@@ -946,9 +939,7 @@ $mydata = mysqli_fetch_assoc($result2)
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <?php include'../assets/alert.php'; ?>
-  <?php include'../assets/modalinput.php'; ?>
-  <?php include'../assets/kurasi.php'; ?>
+  
   
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
@@ -960,13 +951,7 @@ $mydata = mysqli_fetch_assoc($result2)
 }
 </script>
 
-<script>
-  $(document).ready(function(){
-    $('form input').change(function () {
-      $('form p').text(this.files.length + " file(s) selected");
-  });
-});
-</script>
+
 
 <script>
     function openCity(evt, cityName) {
@@ -1064,14 +1049,19 @@ document.getElementById("deskripsi").disabled = false;
           sortField: 'text'
       });
   });
+  
 	</script>
+ 
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
 <script src="../assets/js/modal.js"></script>
-
+<?php include'../assets/alert.php'; ?>
+  <?php include'../assets/modalinput.php'; ?>
+  <?php include'../assets/kurasi.php'; ?>
 
 </body>
+
 
 </html>

@@ -98,7 +98,7 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
           <div class="form-group">
             <label class="form-control-label">Jenis Produk <span class="tx-danger">*</span></label>
             <input class="form-control " type="text" id="jenis_produk" name="jenis_produk"  placeholder="Jenis produk " Required>
-            <small>Contoh : Kue Kering, Sisik Keju</small>
+            <small>Contoh : Kue Kering, Sistik Keju</small>
         </div>
     </div>
     <div class="col-lg-7">
@@ -224,19 +224,19 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
   </div>
   <div class="col-lg-6">
     <div class="form-group">
-      <label class="form-control-label">ISO<span class="tx-danger">*</span></label>
+      <label class="form-control-label">ISO</label>
       <input class="form-control" type="text" name="iso"  id="pirt" placeholder="ISO">
   </div>
   <div class="form-group">
-      <label class="form-control-label">Hak Merek (HAKI)<span class="tx-danger">*</span></label>
+      <label class="form-control-label">Hak Merek (HAKI)</label>
       <input class="form-control" type="text" name="haki"  id="pirt" placeholder="Hak Merek">
   </div>
   <div class="form-group">
-      <label class="form-control-label">HACCP<span class="tx-danger">*</span></label>
+      <label class="form-control-label">HACCP</label>
       <input class="form-control" type="text" name="haccp"  id="pirt" placeholder="HACCP">
   </div>
   <div class="form-group">
-      <label class="form-control-label">Legalitas Lainnya<span class="tx-danger">*</span></label>
+      <label class="form-control-label">Legalitas Lainnya</label>
       <textarea class="form-control" type="text" name="legalitas" id="legalitas" placeholder="Legalitas Lainnya"></textarea>
       <small>* Catatan:  Kosongkan Jika tidak memiliki legalitas atau sertifikasi</small>
   </div>
@@ -244,7 +244,7 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
 <hr><br>
 <div class="col-lg-12">
     <div class="form-group">
-      <label class="form-control-label">Media Penjualan <span class="tx-danger">*</span></label>
+      <label class="form-control-label">Media Penjualan </label>
       <textarea class="form-control" type="text" name="media_penjualan" id="media_penjualan"  placeholder="Media Penjualan"></textarea>
       <small>*Contoh : Facebook, Instagram dll</small>
   </div>
@@ -269,12 +269,18 @@ $kodeBarang = $huruf . sprintf("%03s", $urutan);
 
 
 </div><br>
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    <button type="sumbit" class="btn btn-primary" name="input">Simpan Data</button>
+<div class="modal-footer" >
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+    <button type="sumbit" class="btn btn-primary" name="input"  id="ic" hidden >Simpan Data</button>
 </form>
 </div>
 </div>
 </div>
 </div>
 </div>
+<script>
+ $('#nama_perusahaan').on('change', function() {
+  document.getElementById("ic").hidden = false;
+  
+});
+  </script>

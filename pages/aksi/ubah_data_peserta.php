@@ -25,7 +25,7 @@ if (isset($_POST['ubah'])) {
 
 mysqli_query($koneksi,"UPDATE tb_brainstorming SET jenis_produk='$jenis_produk',merek='$merek',tagline='$tagline',kelebihan_produk='$kelebihan',gramasi='$gramasi',gramasi_new='$gramasi_new',segmentasi='$segmen',harga='$harga',varian_rasa='$varian',komposisi='$komposisi1',redaksi='$redaksi',ket_lain='$keterangan' WHERE id_ikm = '$id_ikm'");
 $_SESSION['update']="Data Berhasil Disimpan $jenis_produk"; 
-header("location:../profile.php?id_ikm=$id_ikm&pesan=ubah");   
+header("location:../profile.php?id_ikm=$id_ikm&pesan=ubah&#info");   
   
 }
 
